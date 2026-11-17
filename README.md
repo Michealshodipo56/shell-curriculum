@@ -1,14 +1,15 @@
 # Gauntlex Shell Curriculum
 
-76 independent Bash exercises, ordered from beginner to advanced. **Each task is its own Markdown file.**
+76 standalone Markdown exercises, in ascending order from SH-001 to SH-076.
 
-## Learning format
+## Exercise format
 
-- **Description:** the specific task the learner must complete.
-- **Tips:** a practical explanation of the relevant shell concepts and how to approach the task without supplying the finished solution.
-- **Example:** illustrative expected output or observable result; adapt paths and timestamps to the environment.
+- **Description:** The exact task the learner must complete.
+- **Requirements:** The concepts, commands, and skills the learner must know or learn for the task.
+- **Tips:** A practical explanation of the task and how to approach solving it, without providing the finished solution.
+- **Example:** Illustrative expected output or observable result.
 
-## Progression
+## Exercise directories
 
 - `exercises/terminal-foundations/`: SH-001 through SH-010
 - `exercises/streams-and-text/`: SH-011 through SH-022
@@ -18,10 +19,8 @@
 - `exercises/robust-files-and-processes/`: SH-050 through SH-058
 - `exercises/automation-and-advanced-shell/`: SH-059 through SH-076
 
-Integrate tasks in ascending SH-number order. Run file-changing exercises in isolated workspaces; never use learner production data. Bash is the default interpreter. Examples are illustrations, not complete tests. For each task, assess the behavior specified in its description and check edge cases.
+Import exercises in SH-number order. Use isolated workspaces for filesystem tasks. Bash is the default interpreter. Example output is illustrative, not a full test specification.
 
-## Source inspiration
+## Attribution
 
-Original assignments informed by [Learn Linux with Ease](https://github.com/akintunero/learn-linux-with-ease), [Complete Bash Scripting Course](https://github.com/bahamas10/bash-course), [The Bash Command Line](https://github.com/krother/bash_tutorial), [LabEx Shell Challenges](https://github.com/labex-labs/shell-practice-challenges), and [Shell Scripting from Beginner to Automation](https://github.com/kcommit/shell-scripting). This is a topic-level synthesis, **not** a verified file-by-file extraction of all upstream exercises. No upstream solutions or tests are copied.
-
-The old `MASTER_SHELL_CURRICULUM.md` is superseded by these per-exercise files.
+This original topic-level curriculum was informed by [Learn Linux with Ease](https://github.com/akintunero/learn-linux-with-ease), [Complete Bash Scripting Course](https://github.com/bahamas10/bash-course), [The Bash Command Line](https://github.com/krother/bash_tutorial), [LabEx Shell Challenges](https://github.com/labex-labs/shell-practice-challenges), and [Shell Scripting from Beginner to Automation](https://github.com/kcommit/shell-scripting). It is not a verified exhaustive file-by-file consolidation of the upstream materials.
