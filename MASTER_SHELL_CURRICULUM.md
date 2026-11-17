@@ -998,3 +998,337 @@ second run → already running (exit 1)
 Write reusable logging functions for INFO, WARN, and ERROR with timestamps, sending errors to stderr.
 
 **Tips**
+
+Learn `printf`, date formatting, output streams, and why structured, consistent logs help debugging.
+
+**Example**
+
+```text
+2026-11-17T09:00:00 INFO started
+```
+
+### SH-058 — Check Every Failure
+
+**Description**
+
+Build a script that stops on a failed required step and reports which step failed.
+
+**Tips**
+
+Learn exit-status propagation, `if ! command`, `set -o pipefail`, and limitations of `set -e`; prefer explicit checks where behavior matters.
+
+**Example**
+
+```text
+error: step "download" failed
+```
+
+---
+
+## Automation and Advanced Shell
+
+### SH-059 — Archive a Directory
+
+**Description**
+
+Create a compressed `.tar.gz` archive of a supplied directory with a predictable output filename.
+
+**Tips**
+
+Learn `tar -czf`, relative archive paths, quoting, and how to inspect an archive before trusting it.
+
+**Example**
+
+```text
+project/ → project.tar.gz
+```
+
+### SH-060 — Verify an Archive
+
+**Description**
+
+List the contents of a supplied tar archive and reject archives containing absolute paths or `..` traversal components before extraction.
+
+**Tips**
+
+Learn `tar -tf`, archive path traversal risks, and why inspection must precede extraction.
+
+**Example**
+
+```text
+archive accepted: 4 entries
+```
+
+### SH-061 — Backup With Rotation
+
+**Description**
+
+Back up a specified directory to timestamped archives and retain only the newest N backups.
+
+**Tips**
+
+Learn timestamp naming, sorting, retention rules, and safe deletion restricted to a dedicated backup directory.
+
+**Example**
+
+```text
+backup-20261117-090000.tar.gz created; 3 retained
+```
+
+### SH-062 — Monitor a Log
+
+**Description**
+
+Follow newly appended lines in a log and print only those matching a supplied keyword until interrupted.
+
+**Tips**
+
+Learn `tail -f` or `tail -F`, pipes, buffering, and graceful termination.
+
+**Example**
+
+```text
+new line: ERROR database unavailable
+```
+
+### SH-063 — Summarize CSV Data
+
+**Description**
+
+From a simple CSV file with `category,amount` rows and no quoted commas, print the sum of amounts per category.
+
+**Tips**
+
+Learn `awk -F,`, associative accumulation, numeric conversion, and malformed-record handling.
+
+**Example**
+
+```text
+food,10
+food,5 → food 15
+```
+
+### SH-064 — Compare Two Lists
+
+**Description**
+
+Print values that occur in the first newline-delimited file but not the second, ignoring duplicate lines.
+
+**Tips**
+
+Learn `sort -u` and `comm -23` with sorted inputs; decide whether comparison is case-sensitive.
+
+**Example**
+
+```text
+A: ada, maya; B: maya → ada
+```
+
+### SH-065 — Parse a Config File
+
+**Description**
+
+Read a simple `KEY=VALUE` configuration file with comments and blank lines, and print selected settings without executing file contents.
+
+**Tips**
+
+Learn safe line parsing, splitting on the first `=`, and why sourcing untrusted configuration files is unsafe.
+
+**Example**
+
+```text
+PORT=8080 → port: 8080
+```
+
+### SH-066 — Generate a Project Scaffold
+
+**Description**
+
+Create a standard project directory structure from a supplied project name, refusing to overwrite an existing project.
+
+**Tips**
+
+Learn `mkdir -p`, templates, path validation, and idempotency.
+
+**Example**
+
+```text
+demo/
+├── README.md
+├── src/
+└── tests/
+```
+
+### SH-067 — Schedule a Script
+
+**Description**
+
+Write a script suitable for scheduled execution and document a cron entry that runs it daily at 02:00.
+
+**Tips**
+
+Learn cron’s five time fields, minimal environment, absolute paths, output redirection, and timezone considerations.
+
+**Example**
+
+```text
+0 2 * * * /absolute/path/job.sh
+```
+
+### SH-068 — Check Service Health
+
+**Description**
+
+Accept a URL, make an HTTP request, and report whether it returns a successful 2xx status.
+
+**Tips**
+
+Learn `curl -sS -o /dev/null -w`, timeouts, network failure handling, and the distinction between transport errors and HTTP status codes.
+
+**Example**
+
+```text
+https://example.org → healthy (200)
+```
+
+### SH-069 — Retry a Flaky Command
+
+**Description**
+
+Run a supplied command up to a configurable maximum number of attempts, waiting between failures and stopping immediately on success.
+
+**Tips**
+
+Learn retries, exit statuses, bounded loops, delays, and why some operations are unsafe to retry.
+
+**Example**
+
+```text
+attempt 1 failed
+attempt 2 succeeded
+```
+
+### SH-070 — Process Files Safely
+
+**Description**
+
+Process every `.log` file under a directory, including names with spaces and newlines, and count lines in each.
+
+**Tips**
+
+Learn `find -print0` and `read -r -d ""`; avoid parsing `ls` output.
+
+**Example**
+
+```text
+server log.log: 24 lines
+```
+
+### SH-071 — Use a Subshell
+
+**Description**
+
+Run a command in a supplied directory without changing the caller’s working directory.
+
+**Tips**
+
+Learn `( ... )` subshell grouping and how directory changes and variable assignments are isolated.
+
+**Example**
+
+```text
+before=/home/ada
+inside=/tmp
+after=/home/ada
+```
+
+### SH-072 — Compare POSIX and Bash
+
+**Description**
+
+Rewrite a small Bash-only script to work under POSIX `sh`, documenting each feature you replaced.
+
+**Tips**
+
+Learn `#!/bin/sh`, portable `[ ]`, lack of Bash arrays/`[[ ]]`, and testing with `dash` where available.
+
+**Example**
+
+```text
+sh portable.sh Ada → Hello, Ada!
+```
+
+### SH-073 — Analyze a Log
+
+**Description**
+
+Produce a summary of total records, errors, and the three most common error messages from a supplied structured log.
+
+**Tips**
+
+Combine pipelines, `awk`, `sort`, `uniq`, and explicit parsing assumptions. Keep output deterministic for automated assessment.
+
+**Example**
+
+```text
+total=100
+errors=8
+top_error=timeout (4)
+```
+
+### SH-074 — Build a CLI Utility
+
+**Description**
+
+Create a command-line utility with `--help`, `--version`, a required input path, and an optional output path.
+
+**Tips**
+
+Learn CLI contracts, argument parsing, useful usage messages, validation, stdout/stderr discipline, and stable exit codes.
+
+**Example**
+
+```text
+./tool.sh --help → Usage: tool.sh ...
+```
+
+### SH-075 — Test a Shell Script
+
+**Description**
+
+Write a shell-based test harness that runs a supplied utility with valid and invalid inputs and checks output and exit status.
+
+**Tips**
+
+Learn temporary fixtures, output capture, expected statuses, and why tests should isolate their working directory.
+
+**Example**
+
+```text
+PASS valid input
+PASS missing file
+2 tests passed
+```
+
+### SH-076 — Final Project: Automated Backup CLI
+
+**Description**
+
+Build a production-minded backup command that validates inputs, creates timestamped archives, supports dry-run and retention options, logs results, and handles failures safely.
+
+**Tips**
+
+Combine arguments, functions, archives, logging, traps, validation, and safe cleanup. Implement dry-run without changing files; document the CLI and test failure cases.
+
+**Example**
+
+```text
+./backup.sh --source ./project --dest ./backups --keep 3
+INFO backup created: backup-20261117-090000.tar.gz
+```
+
+---
+
+## Integration notes
+
+The agent should preserve exercise IDs and order, convert each task into the application’s exercise schema, create isolated fixtures for file-based tasks, and assess behavior rather than hard-coded incidental values. For tasks with interactive input, provide stdin fixtures; for filesystem tasks, inspect generated files and permissions. Prefer explicit deterministic test inputs. Do not reveal full reference solutions in the learner-facing tips.
